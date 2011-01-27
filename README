@@ -1,1 +1,8 @@
 g5gem - making it easier to deploy our gems
+
+
+Install:
+  gem install g5gem
+
+Usage
+  g5gem release <path/to/.gem/file>
