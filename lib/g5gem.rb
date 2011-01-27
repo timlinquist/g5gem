@@ -1,3 +1,5 @@
+require 'net/scp'
+
 module G5gem
-  # Your code goes here...
+
 end
