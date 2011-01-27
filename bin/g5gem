@@ -1,2 +1,19 @@
 #!/usr/bin/env ruby
 
+require 'g5gem'
+require 'thor'
+
+class App < Thor
+  desc "release GEM", "release gem to uranus"
+  method_options :force => :boolean
+  def release(name)
+    if name[-3,3] == 'gem'
+      G5gem.transer_file_to_server(name)
+      G5gem.rebuild_index
+      say "#{name} deployed", :green
+    else
+      say "Sorry dude. Needs to be a gem", :red
+    end
+  end
+end
+App.start
