@@ -16,7 +16,7 @@ module G5gem
   
   def self.list_gems
     Net::SSH.start("util1", "g5search") do |ssh|
-      ssh.exec "ls -l /shared/gems/gems"
+      ssh.exec "ls -1 /shared/gems/gems"
     end
   end
   
