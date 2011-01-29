@@ -13,4 +13,16 @@ module G5gem
       ssh.exec "/usr/bin/gem generate_index -d /shared/gems"
     end
   end
+  
+  def self.list_gems
+    Net::SSH.start("util1", "g5search") do |ssh|
+      ssh.exec "ls -l /shared/gems/gems"
+    end
+  end
+  
+  def self.yank_gem_from_server(gem)
+    Net::SSH.start("util1", "g5search") do |ssh|
+      ssh.exec "rm /shared/gems/gems/#{gem}"
+    end
+  end    
 end

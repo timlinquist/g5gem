@@ -4,13 +4,34 @@ require 'g5gem'
 require 'thor'
 
 class App < Thor
+  #helpers
+  no_tasks do
+    def is_gem?(name)
+      name[-3,3] == 'gem'
+    end
+  end  
+
   desc "release GEM", "release gem to uranus"
   method_options :force => :boolean
   def release(name)
-    if name[-3,3] == 'gem'
+    if is_gem?(name)
       G5gem.transer_file_to_server(name)
       G5gem.rebuild_index
       say "#{name} deployed", :green
+    else
+      say "Sorry dude. Needs to be a gem", :red
+    end
+  end  
+  
+  desc "yank GEM", "yank gem from uranus"
+  def yank(name)
+    if is_gem?(name)
+      G5gem.yank_gem_from_server(name)
+      #Rebuild just in case the index got f'd up
+      G5gem.rebuild_index
+      say "#{name} removed\n", :green
+      say "Gems on server:", :green
+      G5gem.list_gems
     else
       say "Sorry dude. Needs to be a gem", :red
     end
